@@ -6,6 +6,10 @@ Votre objectif est de déployer plusieurs applications sur Kubernetes, et d'appr
 ## Consignes générales
 
 - **Gardez une trace de vos actions** : créez une documentation en markdown dans ce dépôt, où vous notez les commandes utilisées, les erreurs rencontrées et comment vous les avez résolues.
+- **Section "Apprentissages" obligatoire** : pour chaque difficulté, notez :
+  - Problème rencontré (et pourquoi il est survenu)
+  - Solution apportée (et pourquoi elle fonctionne)
+  - Nouveau savoir (et pourquoi il est utile)
 
 ---
 
@@ -19,6 +23,7 @@ Pour pouvoir manipuler Kubernetes en local, il vous faut un cluster local, des o
 
 1. Installez les outils suivants :
 
+  - [minikube](https://minikube.sigs.k8s.io/docs/start/) : pour créer un cluster Kubernetes local
   - [kubectl](https://kubernetes.io/docs/tasks/tools/) : pour piloter Kubernetes en ligne de commande
   - [Docker](https://docs.docker.com/get-docker/) : pour construire et stocker vos images de conteneurs
   - [Helm](https://helm.sh/docs/intro/install/) : pour gérer des applications complexes via des charts
@@ -30,11 +35,23 @@ Pour pouvoir manipuler Kubernetes en local, il vous faut un cluster local, des o
 2. Vérifiez l'installation de chaque outil avec :
 
   ```bash
+  minikube version
   kubectl version --client
   docker --version
   helm version
   k9s version
   ```
+
+3. Les astuces pour kubernetes :
+
+   ```bash
+   alias k='kubectl'
+   brew install krew
+   k krew install ctx
+   k krew install ns
+   k ctx minikube
+   k ns default
+   ```
 
 ### Indices
 
@@ -43,9 +60,10 @@ Pour pouvoir manipuler Kubernetes en local, il vous faut un cluster local, des o
 ### Vérifications
 
 - [ ] Tous les outils sont installés et fonctionnels
-- [ ] Vous pouvez exécuter `kubectl get nodes`
+- [ ] Vous pouvez lancer `minikube start` sans erreur
+- [ ] Vous pouvez exécuter `kubectl get nodes` et voir le nœud minikube
 
-## 1. Explorer EKS et les bases de Kubernetes
+## 1. Explorer minikube et les bases de Kubernetes
 
 ### Pourquoi
 
@@ -60,7 +78,7 @@ Testez les commandes suivantes et observez leur sortie :
 - `kubectl get namespaces` : liste les namespaces disponibles
 - `kubectl config view` : affiche la configuration kubectl
 - `kubectl config current-context` : affiche le contexte courant
-- `kubectl describe node EKS` : détails sur le nœud EKS
+- `kubectl describe node minikube` : détails sur le nœud minikube
 - `kubectl cluster-info` : informations sur le cluster
 - `kubectl get events --sort-by='.metadata.creationTimestamp' -A` : derniers événements du cluster dans tous les namespaces
 - `kubectl get pods --all-namespaces` : liste tous les pods de tous les namespaces
@@ -77,6 +95,7 @@ Testez les commandes suivantes et observez leur sortie :
 - [ ] Vous savez lister les ressources principales du cluster
 - [ ] Vous savez afficher les détails d'un nœud ou d'un pod
 - [ ] Vous savez trouver le contexte courant et les namespaces
+
 
 ## 2. Déployer le guestbook (Pod)
 
